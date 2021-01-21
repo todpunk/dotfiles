@@ -14,5 +14,8 @@ Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 
+" line numbers on and gray
+set number
+highlight LineNr ctermfg=grey
 " more powerful backspacing
 set backspace=indent,eol,start   
