@@ -1,7 +1,11 @@
 " ~/.vimrc
 
+" Start fresh setting things
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
+
+
+"""" SETS AND COLORS """"
 
 " Spacing and tabbing related
 set backspace=indent,eol,start   
@@ -28,6 +32,7 @@ highlight LineNr ctermfg=grey
 highlight ColorColumn ctermbg=darkblue guibg=darkblue
 
 
+"""" PLUGINS """"
 
 "" enable vim-plug
 call plug#begin('~/.vim/plugged')
@@ -38,7 +43,20 @@ Plug 'christoomey/vim-tmux-navigator'
 " Darcula like theme
 Plug 'doums/darcula'
 
+" Make Vim a good go editor
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
+" Linter
+Plug 'dense-analysis/ale'
+
 " Plug's finisher
 call plug#end()
 
 
+"""" AUTOCOMMANDS """"
+
+" tab preferences by filetype
+autocmd Filetype yaml setlocal ts=2 sw=2 expandtab
+autocmd Filetype go setlocal ts=4
