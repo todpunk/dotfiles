@@ -75,6 +75,7 @@ plugins=(
 	zsh-autosuggestions
 )
 
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -103,7 +104,6 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-ZSH_THEME=sorin
 
 fuck () {
     TF_PYTHONIOENCODING=$PYTHONIOENCODING;
