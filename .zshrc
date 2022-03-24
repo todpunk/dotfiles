@@ -129,6 +129,42 @@ devmux () {
     ; 
 }
 
+# Yoinked from https://askubuntu.com/questions/411503/is-there-a-dynamic-multiple-monitor-friendly-desktop-environment-available-for-u
+win_save() {
+    if [ -f $HOME/.my_windows_config.txt ]; then
+        mv $HOME/.my_windows_config.txt $HOME/.my_windows_config.txt.prev
+    fi
+    wmctrl -p -G -l | awk '($2 != -1)&&($3 != 0)&&($NF != "Desktop")' | awk '{print $1}' | while read mywinid
+    do
+    xwininfo -id "$mywinid" >> $HOME/.my_windows_config.txt
+    done
+}
+
+win_restore() {
+    file=$HOME/.my_windows_config.txt
+    declare -a mywinid
+    declare -a x
+    declare -a y
+    declare -a width
+    declare -a height
+
+    nl=$(cat "$file" | grep xwininfo |wc -l)
+
+    for i in $(seq 1 $nl)
+    do
+        mywinid[i]=$(cat "$file" | grep "xwininfo" | awk -v p="$i" '{if(NR==p) print $4}')
+        x[i]=$(cat "$file" | grep "Absolute upper-left X" | awk -v p="$i" '{if(NR==p) print $NF}')
+        y[i]=$(cat "$file" | grep "Absolute upper-left Y" | awk -v p="$i" '{if(NR==p) print $NF}')
+        width[i]=$(cat "$file" | grep "Width" | awk -v p="$i" '{if(NR==p) print $NF}')
+        height[i]=$(cat "$file" | grep "Height" | awk -v p="$i" '{if(NR==p) print $NF}')
+    done
+ 
+    for it in $(seq 1 $nl)
+    do
+        wmctrl -i -r "${mywinid[$it]}" -e 0,"${x[$it]}","${y[$it]}","${width[it]}","${height[it]}"
+    done
+}
+
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
@@ -142,8 +178,11 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
 . "$HOME/.cargo/env"
 
+source .gvm/scripts/gvm
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias ll='ls -al --color'
+ 
