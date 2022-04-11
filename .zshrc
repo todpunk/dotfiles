@@ -178,7 +178,7 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
 . "$HOME/.cargo/env"
 
-source .gvm/scripts/gvm
+source "$HOME/.gvm/scripts/gvm"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
