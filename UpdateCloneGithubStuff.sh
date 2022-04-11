@@ -13,8 +13,12 @@ ORGS="matthewsreis catalystsquad tnlcommunity"
 PERPAGE=10
 
 if [[ -z "$GIT_PAT" ]]; then
+    echo "GIT_PAT not set, sourcing .localvars file. Maybe I'm in a cron"
+    source "${HOME}/.localvars"
+    if [[ -z "$GIT_PAT" ]]; then
         echo "Must provide GIT_PAT in environment" 1>&2
         exit 1
+    fi
 fi
 
 # First update anything we've got already
@@ -27,13 +31,23 @@ do
     [ -L "${d%/}" ] && continue
     if [ -d "${repo}" ]
     then
-        cd "${repo}"
-        if [[ -d .git ]]
+      cd "${repo}"
+      if [[ -d .git ]]
+      then
+        branch_name=$(git symbolic-ref -q HEAD)
+        branch_name=${branch_name##refs/heads/}
+        branch_name=${branch_name:-HEAD}
+        if [[ `git show-branch remotes/origin/${branch_name} | wc -l` == "1" ]]
         then
           echo "Updating ${repo}"
+          set +e
           git pull
+          set -e
+        else 
+          echo "Not updating ${repo}"
         fi
-        cd -
+      fi
+      cd -
     fi
   done
 done
@@ -121,5 +135,4 @@ do
 done
 
 rm "$tmpfile"
-
 
