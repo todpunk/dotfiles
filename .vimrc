@@ -37,8 +37,11 @@ highlight ColorColumn ctermbg=darkblue guibg=darkblue
 "" enable vim-plug
 call plug#begin('~/.vim/plugged')
 
-" Easy navigation between tmux panes and vim windows
-Plug 'christoomey/vim-tmux-navigator'
+" Linter
+Plug 'dense-analysis/ale'
+
+" Completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Darcula like theme
 Plug 'doums/darcula'
@@ -48,8 +51,21 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 
-" Linter
-Plug 'dense-analysis/ale'
+" Nerdtree needs no comment
+Plug 'preservim/nerdtree'
+
+" Status line update
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" ONLY for the status line stuff
+Plug 'tpope/vim-fugitive'
+
+" Put git line status in the left
+Plug 'airblade/vim-gitgutter'
+
+" Easy navigation between tmux panes and vim windows
+Plug 'christoomey/vim-tmux-navigator'
 
 " Plug's finisher
 call plug#end()
