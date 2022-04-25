@@ -8,12 +8,12 @@ if [[ -f "${HOME}/.localvars" ]]; then
     source "${HOME}/.localvars"
 fi
 # Expects a directory where the structure is <DIR>/<Orgs>/<Repos>/
-REPOSDIR=${REPOSDIR:-'${HOME}/repos'}
+REPOSDIR=${REPOSDIR:-"${HOME}/repos"}
 # Obviously change this to your user, this is for auth
-GITHUB_USER=${GITHUB_USER:-'todpunk'}
+GITHUB_USER=${GITHUB_USER:-"todpunk"}
 # Your user is included by default, but you can adjust that as well.
-GITHUB_USERS=${GITHUB_USERS:-'${GITHUB_USER}'}
-GITHUB_ORGS=${GITHUB_ORGS:-'catalystsquad tnlcommunity'}
+GITHUB_USERS=${GITHUB_USERS:-"${GITHUB_USER}"}
+GITHUB_ORGS=${GITHUB_ORGS:-"catalystsquad tnlcommunity"}
 PERPAGE=10
 
 if [[ -z "$GITHUB_PAT" ]]; then
