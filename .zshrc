@@ -186,3 +186,5 @@ export NVM_DIR="$HOME/.nvm"
 
 alias ll='ls -al --color'
  
+
+[[ -s "/home/thansmann/.gvm/scripts/gvm" ]] && source "/home/thansmann/.gvm/scripts/gvm"
