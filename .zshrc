@@ -178,13 +178,28 @@ export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 
 . "$HOME/.cargo/env"
 
-source "$HOME/.gvm/scripts/gvm"
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+### Specific Env Vars
+
+export TERM=xterm-256color
+
+
+### Aliases
 
 alias ll='ls -al --color'
  
 
 [[ -s "/home/thansmann/.gvm/scripts/gvm" ]] && source "/home/thansmann/.gvm/scripts/gvm"
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
+
