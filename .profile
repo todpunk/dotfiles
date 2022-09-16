@@ -16,6 +16,4 @@ if [ -n "${BASH_VERSION}" ]; then
     fi
 fi
 
-if [[ -f "${HOME}/.localvars" ]]; then
-    source "${HOME}/.localvars"
-fi
+

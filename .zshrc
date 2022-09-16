@@ -105,6 +105,67 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
+### Specific Env Vars
+
+export TERM=xterm-256color
+
+
+### Aliases
+alias ls='ls -a --color'
+alias ll='ls -l'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+
+### Path bullshit
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[[ -s "/home/thansmann/.gvm/scripts/gvm" ]] && source "/home/thansmann/.gvm/scripts/gvm"
+
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
+
+# Setup Oracle Cloud CLI if you have it
+[[ -e "${HOME}/lib/oracle-cli/lib/python3.8/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "${HOME}/lib/oracle-cli/lib/python3.8/site-packages/oci_cli/bin/oci_autocomplete.sh"
+
+if [[ -f "${HOME}/.localvars" ]]; then
+    source "${HOME}/.localvars"
+fi
+
+if [[ -f "${HOME}/.sharedrc" ]]; then
+    source "${HOME}/.sharedrc"
+fi
+
+if [ -f "$HOME/.cargo/env" ] ; then
+    source "$HOME/.cargo/env"
+fi
+
+if [ -f "$HOME/.rover/env" ] ; then
+    source "/home/todhansmann/.rover/env"
+fi
+
+# Finally setup new commands
 fuck () {
     TF_PYTHONIOENCODING=$PYTHONIOENCODING;
     export TF_SHELL=zsh;
@@ -165,41 +226,64 @@ win_restore() {
     done
 }
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+# configure go environment
+#
+# Custom go binaries are installed in $HOME/go/bin.
+#
+function go_version {
+    if [ -f "go.mod" ]; then
+        v=$(grep -E '^go \d.+$' ./go.mod | grep -oE '\d.+$')
+        if [[ ! $(go version | grep "go$v") ]]; then
+          echo ""
+          echo "About to switch go version to: $v"
+          if ! command -v "$HOME/go/bin/go$v" &> /dev/null
+          then
+            echo "run: go install golang.org/dl/go$v@latest && go$v download && sudo cp \$(which go$v) \$(which go)"
+            return
+          fi
+          sudo cp $(which go$v) $(which go)
+        fi
+    fi
+}
+if [ ! -f "$HOME/go/bin/gofumpt" ]; then
+    go install mvdan.cc/gofumpt@latest
+fi
+if [ ! -f "$HOME/go/bin/revive" ]; then
+    go install github.com/mgechev/revive@latest
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+# configure rust environment
+#
+# - autocomplete
+# - rust-analyzer
+# - cargo audit
+# - cargo-nextest
+# - cargo fmt
+# - cargo clippy
+# - cargo edit
+#
+if [ ! -f "$HOME/.config/rustlang/autocomplete/rustup" ]; then
+  mkdir -p ~/.config/rustlang/autocomplete
+  rustup completions bash rustup >> ~/.config/rustlang/autocomplete/rustup
 fi
-export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
-
-. "$HOME/.cargo/env"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
-### Specific Env Vars
-
-export TERM=xterm-256color
-
-
-### Aliases
-
-alias ll='ls -al --color'
- 
-
-[[ -s "/home/thansmann/.gvm/scripts/gvm" ]] && source "/home/thansmann/.gvm/scripts/gvm"
-# add Pulumi to the PATH
-export PATH=$PATH:$HOME/.pulumi/bin
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
-
+source "$HOME/.config/rustlang/autocomplete/rustup"
+if ! command -v rust-analyzer &> /dev/null
+then
+  curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
+  chmod +x ~/.local/bin/rust-analyzer
+fi
+if ! cargo audit --version &> /dev/null; then
+  cargo install cargo-audit --features=fix
+fi
+if ! cargo nextest --version &> /dev/null; then
+  cargo install cargo-nextest
+fi
+if ! cargo fmt --version &> /dev/null; then
+  rustup component add rustfmt
+fi
+if ! cargo clippy --version &> /dev/null; then
+  rustup component add clippy
+fi
+if ! ls ~/.cargo/bin | grep 'cargo-upgrade' &> /dev/null; then
+  cargo install cargo-edit
+fi
