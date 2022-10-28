@@ -30,7 +30,10 @@ then
 		htop \
 		inotify-tools \
 		jq \
+        libasound2-dev libasound2-doc \
 		librust-openssl-dev \
+        libssl-dev \
+        libudev-dev \
 		python-is-python3 \
 		neovim \
 		rsync \
@@ -97,6 +100,12 @@ rm -rf awscliv2.zip aws
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo tee /etc/apt/trusted.gpg.d/apt.releases.hashicorp.com.gpg
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get update && sudo apt-get install -y terraform
+
+echo "Installing neovim and it's PPA because Ubuntu is way behind"
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository ppa:neovim-ppa/stable
+sudo apt-get update
+sudo apt-get install -y neovim
 
 echo "installing Docker?"
 sudo apt install -y docker.io
