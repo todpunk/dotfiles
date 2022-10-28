@@ -135,8 +135,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-[[ -s "/home/thansmann/.gvm/scripts/gvm" ]] && source "/home/thansmann/.gvm/scripts/gvm"
-
 # add Pulumi to the PATH
 export PATH=$PATH:$HOME/.pulumi/bin
 
