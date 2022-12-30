@@ -8,6 +8,9 @@ yadm submodule update --recursive --init
 echo "Update submodules"
 yadm pull --recurse-submodules
 
+# This is required on new systems because a home dir "bin" is nonstandard
+mkdir -p ~/bin
+
 echo "Installing vim plug"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -30,10 +33,10 @@ then
 		htop \
 		inotify-tools \
 		jq \
-        libasound2-dev libasound2-doc \
+	        libasound2-dev libasound2-doc \
 		librust-openssl-dev \
-        libssl-dev \
-        libudev-dev \
+		libssl-dev \
+		libudev-dev \
 		python-is-python3 \
 		neovim \
 		rsync \
