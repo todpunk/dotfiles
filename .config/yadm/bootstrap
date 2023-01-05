@@ -13,6 +13,48 @@ yadm pull --recurse-submodules
 # This is required on new systems because a home dir "bin" is nonstandard
 mkdir -p ~/bin
 
+# Setup some common vars for package resolution
+OS="$(uname -s)"
+ARCH="$(uname -m)"
+
+case $OS in
+    "Linux")
+        case $ARCH in
+        "x86_64")
+            ARCH=amd64
+            ;;
+        "aarch64")
+            ARCH=arm64
+            ;;
+        "armv6" | "armv7l")
+            ARCH=armv6l
+            ;;
+        "armv8")
+            ARCH=arm64
+            ;;
+        .*386.*)
+            ARCH=386
+            ;;
+        esac
+        PLATFORM="linux-$ARCH"
+    ;;
+    "Darwin")
+          case $ARCH in
+          "x86_64")
+              ARCH=amd64
+              ;;
+          "arm64")
+              ARCH=arm64
+              ;;
+          esac
+        PLATFORM="darwin-$ARCH"
+    ;;
+esac
+
+#Install Webi and Go via Webi
+curl -sS https://webi.sh/ | sh
+webi golang
+
 echo "Installing vim plug"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -24,6 +66,7 @@ then
     sudo add-apt-repository -y ppa:neovim-ppa/stable
     sudo apt update
 	sudo apt install -y \
+		build-essential \
 		curl \
 		ca-certificates \
 		curl \
@@ -129,6 +172,8 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plu
 sudo groupadd docker
 sudo usermod -aG docker $USER
 
+yadm checkout ~/.zshrc
+yadm checkout ~/.profile
 echo "If you're on your T480, you may need to run the commands below this! Look at the script if you are!"
 #cvt 1920 1080
 # Copy the results that look like the following, everything after "Modeline "
