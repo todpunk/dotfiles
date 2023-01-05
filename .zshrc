@@ -117,6 +117,9 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
+### Keybinds, for envs that need them added back
+bindkey  "^[[H"   beginning-of-line
+bindkey  "^[[F"   end-of-line
 
 ### Path bullshit
 
