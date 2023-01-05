@@ -224,6 +224,10 @@ win_restore() {
     done
 }
 
+# This is required before we start messing with go since go is in the envman paths
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
 # configure go environment
 #
 # Custom go binaries are installed in $HOME/go/bin.
@@ -286,6 +290,4 @@ if ! ls ~/.cargo/bin | grep 'cargo-upgrade' &> /dev/null; then
   cargo install cargo-edit
 fi
 
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
