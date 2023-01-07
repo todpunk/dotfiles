@@ -177,7 +177,7 @@ echo "Installing neovim nightly"
 curl -Lo nvim.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
 tar -xvzf nvim.tar.gz --strip-components=1 --directory ~/.local/
 rm nvim.tar.gz
-ln -s ~/.local/nvim ~/.local/vim
+ln -s ~/.local/bin/nvim ~/.local/bin/vim 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
