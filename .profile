@@ -16,4 +16,5 @@ if [ -n "${BASH_VERSION}" ]; then
     fi
 fi
 
+[[ -e "/home/todhansmann/lib/oci_autocomplete.sh" ]] && source "/home/todhansmann/lib/oci_autocomplete.sh"
 
