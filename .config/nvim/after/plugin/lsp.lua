@@ -1,13 +1,21 @@
+require('mason').setup()
+require('mason-lspconfig').setup()
+
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
 
 lsp.ensure_installed({
+    'bashls',
+    'bufls',
 	'cssls',
+    'dockerls',
 	'eslint',
 	'gopls',
+    'marksman',
 	'rust_analyzer',
 	'sumneko_lua',
 	'tsserver',
+    'yamlls',
 })
 
 lsp.on_attach(function(client, bufnr)
