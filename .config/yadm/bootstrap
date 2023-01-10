@@ -83,7 +83,7 @@ then
 		libtermkey1 libtree-sitter0 libunibilium4 libvterm0 libxmu6 \
 		libxt6 lua-luv neovim-runtime python3-greenlet python3-msgpack \
 		python3-pynvim x11-common xclip \
-	        libasound2-dev libasound2-doc \
+        libasound2-dev libasound2-doc \
 		librust-openssl-dev \
 		libssl-dev \
 		libudev-dev \
