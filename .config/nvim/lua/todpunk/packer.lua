@@ -13,6 +13,7 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  --[[
   use({
 	  'mofiqul/dracula.nvim',
 	  as = "dracula",
@@ -20,12 +21,26 @@ return require('packer').startup(function(use)
 		  vim.cmd('colorscheme dracula')
 	  end
   })
+  ]]--
 
-  use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-  use('nvim-treesitter/playground')
-  use('theprimeagen/harpoon')
-  use('mbbill/undotree')
-  use('tpope/vim-fugitive')
+  use({
+      'doums/darcula',
+      as = 'darcula',
+      config = function()
+          vim.cmd('colorscheme darcula')
+      end
+  })
+
+  use{'alexghergh/nvim-tmux-navigation'}
+  use{'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'}}
+  use{'nvim-treesitter/playground'}
+  use{'theprimeagen/harpoon'}
+  use{'mbbill/undotree'}
+  use{'tpope/vim-fugitive'}
+  use{'airblade/vim-gitgutter'}
+
+  use{'vim-airline/vim-airline'}
+  use{'vim-airline/vim-airline-themes'}
 
   use {
 	  'VonHeikemen/lsp-zero.nvim',

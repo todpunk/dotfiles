@@ -26,4 +26,3 @@ vim.opt.termguicolors=true
 vim.cmd[[highlight LineNr ctermfg=grey]]
 -- colorcolumn should be grey instead of red or whatever
 vim.cmd[[highlight ColorColumn ctermbg=darkblue guibg=darkblue]]
-
