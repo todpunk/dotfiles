@@ -1,3 +1,6 @@
+-- For now, disable mouse wherever
+vim.opt.mouse=""
+
 --##### SETS AND COLORS #####
 
 -- Spacing and tabbing related
