@@ -65,4 +65,6 @@ return require('packer').startup(function(use)
 	  }
   }
 
+  use{'hashivim/vim-terraform'}
+
 end)
