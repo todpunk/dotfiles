@@ -71,38 +71,38 @@ if [ -n "$(command -v apt-get)" ]
 then
 #    sudo add-apt-repository -y ppa:neovim-ppa/stable
     sudo apt update
-	sudo apt install -y \
-		build-essential \
-		curl \
-		ca-certificates \
-		curl \
-		dnsutils \
-		lsb-release \
-		git \
-		gnupg \
-		gnupg2 \
-		htop \
-		inotify-tools \
-		jq \
-		# For Neovim compat
-		libice6 libluajit-5.1-2 libluajit-5.1-common libmsgpackc2 libsm6 \
-		libtermkey1 libtree-sitter0 libunibilium4 libvterm0 libxmu6 \
-		libxt6 lua-luv neovim-runtime python3-greenlet python3-msgpack \
-		python3-pynvim x11-common xclip \
-        libasound2-dev libasound2-doc \
-		librust-openssl-dev \
-		libssl-dev \
-		libudev-dev \
-		python-is-python3 \
-		python3 \
-		python3-dev \
-		python3-pip \
-		neovim \
-		ripgrep \
-		rsync \
-		unzip \
-		wget \
-		zsh 
+    sudo apt install -y \
+	build-essential \
+	curl \
+	ca-certificates \
+	curl \
+	dnsutils \
+	lsb-release \
+	git \
+	gnupg \
+	gnupg2 \
+	htop \
+	inotify-tools \
+	jq \
+	# For Neovim compat
+	libice6 libluajit-5.1-2 libluajit-5.1-common libmsgpackc2 libsm6 \
+	libtermkey1 libtree-sitter0 libunibilium4 libvterm0 libxmu6 \
+	libxt6 lua-luv neovim-runtime python3-greenlet python3-msgpack \
+	python3-pynvim x11-common xclip \
+	libasound2-dev libasound2-doc \
+	librust-openssl-dev \
+	libssl-dev \
+	libudev-dev \
+	python-is-python3 \
+	python3 \
+	python3-dev \
+	python3-pip \
+	neovim \
+	ripgrep \
+	rsync \
+	unzip \
+	wget \
+	zsh 
 fi
 
 # Make git consistency!
@@ -151,6 +151,10 @@ VERSION=v3.9.4
 BINARY=linux-amd64 
 wget https://get.helm.sh/helm-${VERSION}-${BINARY}.tar.gz -O - | tar xz --strip-components 1 ${BINARY}/helm && mv helm ~/bin/helm && chmod +x ~/bin/helm
 
+# skaffold
+wget -O skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
+mv skaffold ~/bin/skaffold
+chmod +x ~/bin/skaffold
 
 echo "Installing Cloud SDKs"
 #sudo echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
