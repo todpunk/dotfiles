@@ -116,8 +116,8 @@ alias ll='ls -l'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias realsync='$(/usr/bin/env sync)'
 alias sync='echo "You can not sync with WSL2, but you can style do realsync if you need to sync"'
-alias realsync='sync'
 
 ### Keybinds, for envs that need them added back
 bindkey  "^[[H"   beginning-of-line
