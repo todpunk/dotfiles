@@ -53,6 +53,7 @@ esac
 
 #Install Webi and Go via Webi
 curl -sS https://webi.sh/ | sh
+source ~/.config/envman/PATH.env
 webi golang
 
 #Install Node LTS via Webi
@@ -106,7 +107,6 @@ git config --global commit.gpgsign true
 
 # Shell stuff
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
