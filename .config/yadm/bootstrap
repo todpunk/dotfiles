@@ -72,6 +72,7 @@ then
 	curl \
 	dnsutils \
 	lsb-release \
+	fzf \
 	git \
 	gnupg \
 	gnupg2 \
@@ -178,7 +179,7 @@ sudo usermod -aG docker $USER
 sudo systemctl is-active docker
 
 echo "installing thefuck"
-pip3 install thefuck --usermod
+pip3 install thefuck --break-system-packages
 
 yadm checkout ~/.zshrc
 yadm checkout ~/.profile

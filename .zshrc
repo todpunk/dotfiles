@@ -73,6 +73,9 @@ ZSH_THEME="robbyrussell"
 plugins=(
 	git
 	zsh-autosuggestions
+	shrink-path
+  	zsh-syntax-highlighting
+  	fzf
 )
 
 
