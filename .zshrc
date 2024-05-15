@@ -189,7 +189,7 @@ devmux () {
     echo "new devmux"
     tmux new-session -t 'dev' \; \
         new-window \; \
-        split-window -v -p 18 \; \
+        split-window -v -l 14 \; \
     ; 
 }
 
