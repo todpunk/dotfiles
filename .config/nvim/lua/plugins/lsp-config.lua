@@ -12,7 +12,7 @@ return {
     opts = {
       auto_install = true,
       automatic_installation = true,
-      ensure_installed = {"bashls", "cssls", "gopls", "tsserver", "ruff", "rust_analyzer", "terraformls"},
+      ensure_installed = {"bashls", "cssls", "gopls", "tsserver", "ruff_lsp", "rust_analyzer", "terraformls"},
     },
   },
   {
