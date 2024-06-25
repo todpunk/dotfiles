@@ -269,3 +269,4 @@ if ! ls ~/.cargo/bin | grep 'cargo-upgrade' &> /dev/null; then
   cargo install cargo-edit
 fi
 
+source "$HOME/.rye/env"

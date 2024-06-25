@@ -12,7 +12,7 @@ return {
     opts = {
       auto_install = true,
       automatic_installation = true,
-      ensure_installed = {"bashls", "cssls", "gopls", "tsserver", "ruff_lsp", "rust_analyzer", "terraformls"},
+      ensure_installed = {"bashls", "cssls", "gopls", "tsserver", "ruff_lsp", "pyright", "rust_analyzer", "terraformls"},
     },
   },
   {
@@ -20,6 +20,13 @@ return {
     lazy = false,
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local on_attach = function(client, bufnr)
+        if client.name == 'ruff_lsp' then
+          -- Disable hover in favor of Pyright
+          client.server_capabilities.hoverProvider = false
+        end
+      end
+
 
       local lspconfig = require("lspconfig")
       lspconfig.tsserver.setup({
@@ -35,7 +42,23 @@ return {
         capabilities = capabilities
       })
       lspconfig.ruff_lsp.setup({
-        capabilities = capabilities
+        capabilities = capabilities,
+        on_attach = on_attach
+      })
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        settings = {
+          pyright = {
+            -- Using Ruff's import organizer
+            disableOrganizeImports = true,
+          },
+          python = {
+            analysis = {
+              -- Ignore all files for analysis to exclusively use Ruff for linting
+              ignore = { '*' },
+            },
+          },
+        },
       })
       lspconfig.rust_analyzer.setup({
         capabilities = capabilities
